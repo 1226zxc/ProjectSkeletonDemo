@@ -1,0 +1,21 @@
+### JAVA ###
+# 忽略所有target目录下的所有文件
+**/target/
+# 但不要忽略任何目录下的源码和测试源码文件
+!**/src/main/**
+!**/src/test/**
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+# 忽略所有目录下的.mvn目录下的所有文件
+/**/.mvn
+/**/*.md
+/**/mvnw
+/**/.cmd
+/**/mvnw.cmd
+/**/.gitignore
+# 但不要忽略当前目录下的gitignore文件
+!/.gitignore
