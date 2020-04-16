@@ -1,6 +1,7 @@
 ### JAVA ###
-# 忽略所有target目录下的所有文件
-**/target/
+# 忽略所有toutput目录下的所有文件
+**/output/
+/output
 # 但不要忽略任何目录下的源码和测试源码文件
 !**/src/main/**
 !**/src/test/**
