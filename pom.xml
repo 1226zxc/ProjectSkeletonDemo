@@ -60,6 +60,10 @@
 	</dependencyManagement>
 
 	<build>
+		<!--BaseBuild Parameter：所有构建输出文件的根目录-->
+		<directory>${project.basedir}${file.separator}output</directory>
+		<!--BaseBuild Parameter：classes文件输出目录-->
+		<outputDirectory>${project.build.directory}</outputDirectory>
 		<extensions>
 			<extension>
 				<groupId>kr.motd.maven</groupId>
@@ -93,6 +97,7 @@
 				<plugin>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${springboot.version}</version>
 				</plugin>
 				<plugin>
 					<groupId>org.xolstice.maven.plugins</groupId>

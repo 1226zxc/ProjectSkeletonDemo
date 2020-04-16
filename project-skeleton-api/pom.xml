@@ -29,6 +29,11 @@
 	</dependencies>
 
 	<build>
+		<!--BaseBuild Parameter：所有构建输出文件的根目录-->
+		<directory>..${file.separator}output${file.separator}${project.artifactId}</directory>
+		<!--BaseBuild Parameter：classes文件输出目录-->
+		<outputDirectory>${project.build.directory}/classes</outputDirectory>
+
 		<resources>
 			<resource>
 				<!--指定相对路径-->
