@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.lz</groupId>
+		<artifactId>project-skeleton-demo</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>project-skeleton-api</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>project-skeleton-api</name>
+	<description>project-skeleton-api</description>
+	<packaging>jar</packaging>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<!--指定相对路径-->
+				<directory>src/main/resources</directory>
+				<!--排除配置文件，resource插件不需要将其复制到classes下-->
+				<excludes>
+					<exclude>*.properties</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+			</extension>
+		</extensions>
+
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<!-- 指定到本模块的class目录，exclude标签的路径会相对于它 -->
+					<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+					<excludes>
+						<!-- jar包里不包含以下文件 -->
+						<exclude>*.properties</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.xolstice.maven.plugins</groupId>
+				<artifactId>protobuf-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

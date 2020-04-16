@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.lz</groupId>
+	<artifactId>project-skeleton-demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ProjectSkeletonDemo</name>
+	<description>Skeleton Demo project for Spring Boot</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>project-skeleton-api</module>
+		<module>project-skeleton-server</module>
+		<module>project-skeleton-client</module>
+	</modules>
+
+	<properties>
+		<springboot.version>2.2.6.RELEASE</springboot.version>
+		<java.version>1.8</java.version>
+		<!--grpc没有在spring-boot-dependencies声明，所以得自己声明-->
+		<grpc.version>1.28.1</grpc.version>
+		<grpc-protobuf.version>1.20.0</grpc-protobuf.version>
+		<protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
+		<grpc-protobuf-plugin.version>3.3.0</grpc-protobuf-plugin.version>
+		<grpc-gen-java-plugin.version>1.4.0</grpc-gen-java-plugin.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- 令子项目可以继续使用SpringBoot的依赖版本声明功能。spring-boot-dependencies里没有声明的版本可不能从这里获取版本号 -->
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${springboot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-stub</artifactId>
+				<version>${grpc.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.grpc</groupId>
+				<artifactId>grpc-protobuf</artifactId>
+				<version>${grpc-protobuf.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.devh</groupId>
+				<artifactId>grpc-server-spring-boot-starter</artifactId>
+				<version>2.7.0.RELEASE</version>
+			</dependency>
+			<dependency>
+				<groupId>net.devh</groupId>
+				<artifactId>grpc-client-spring-boot-starter</artifactId>
+				<version>2.7.0.RELEASE</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>kr.motd.maven</groupId>
+				<artifactId>os-maven-plugin</artifactId>
+				<version>1.4.1.Final</version>
+			</extension>
+		</extensions>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+					<configuration>
+						<encoding>utf-8</encoding>
+					</configuration>
+				</plugin>
+				<!--此插件负责将resources文件复制到classes目录下，以便能打进包里。默认绑定到compile phrase-->
+				<plugin>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+					<configuration>
+						<!--指定UTF-8复制文件，不使用构建平台的编码，以解耦编码的平台依赖性-->
+						<!--否则被复制到classes目录下的文件中可能存在乱码-->
+						<encoding>UTF-8</encoding>
+					</configuration>
+				</plugin>
+				<plugin>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				<plugin>
+					<groupId>org.xolstice.maven.plugins</groupId>
+					<artifactId>protobuf-maven-plugin</artifactId>
+					<version>${protobuf-maven-plugin.version}</version>
+					<configuration>
+						<protocArtifact>com.google.protobuf:protoc:${grpc-protobuf-plugin.version}:exe:${os.detected.classifier}</protocArtifact>
+						<pluginId>grpc-java</pluginId>
+						<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-gen-java-plugin.version}:exe:${os.detected.classifier}</pluginArtifact>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<!-- 编译Grpc message -->
+								<goal>compile</goal>
+								<!-- 编译Grpc Service -->
+								<goal>compile-custom</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

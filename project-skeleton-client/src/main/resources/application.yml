@@ -1,0 +1,13 @@
+spring:
+  main:
+    # 此应用不以任何容器方none式运行
+    web-application-type:
+  application:
+    name: client-side-application
+grpc:
+  client:
+    hello-server:
+      address: static://127.0.0.1:9090
+      enableKeepAlive: true
+      keepAliveWithoutCalls: true
+      negotiationType: plaintext

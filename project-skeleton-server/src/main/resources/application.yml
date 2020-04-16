@@ -1,0 +1,9 @@
+spring:
+  main:
+    # 此应用不以任何容器方式运行
+    web-application-type: none
+  application:
+    name: sever-side-application
+grpc:
+  server:
+    port: 9090
