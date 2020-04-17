@@ -3,7 +3,23 @@ spring:
     # 此应用不以任何容器方式运行
     web-application-type: none
   application:
-    name: sever-side-application
+    name: project-skeleton-server
 grpc:
   server:
     port: 9090
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: logs/
+    # 日志文件前缀名
+    name: project-skeleton-server
+    # 历史文件存储天数
+    max-history: 30
+    # 单个文件大小上限,超此限制将滚动保存
+    max-size: 10MB
+    # 历史日志总大小上限
+    total-size-cap: 2GB
+  level:
+    # RootLogger 日志级别阈值
+    root: INFO
+

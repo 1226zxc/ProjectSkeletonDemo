@@ -7,10 +7,15 @@ import org.springframework.context.ConfigurableApplicationContext;
 @SpringBootApplication
 public class Client {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		ConfigurableApplicationContext context = SpringApplication.run(Client.class, args);
 		HelloClient bean = context.getBean(HelloClient.class);
-		System.out.println(bean.receiveGreeting(args[0]));
+		System.out.println("start....");
+		while (true) {
+			bean.receiveGreeting("World!");
+			bean.sayHelloAgain("World!");
+//			Thread.sleep(3000);
+		}
 	}
 
 }

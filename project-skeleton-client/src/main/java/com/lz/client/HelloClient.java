@@ -17,5 +17,11 @@ public class HelloClient {
                 .build();
         return helloService.sayHello(request).getMessage();
     }
+    public String sayHelloAgain(String name) {
+        HelloRequest request = HelloRequest.newBuilder()
+                .setName(name)
+                .build();
+        return helloService.sayHelloAgain(request).getMessage();
+    }
 
 }

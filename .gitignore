@@ -1,7 +1,9 @@
 ### JAVA ###
 # 忽略所有toutput目录下的所有文件
 **/output/
+# 忽略当前output下的所有文件
 /output
+/logs
 # 但不要忽略任何目录下的源码和测试源码文件
 !**/src/main/**
 !**/src/test/**
