@@ -18,9 +18,11 @@
     <!-- 日志文件路径+日期-->
     <property name="LOG_DIR" value="${LOG_HOME}/%d{yyyy-MM-dd}" />
 
-    <!--对日志进行格式化-->
-    <property name="LOG_MSG" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"/>
+    <!--颜色控制器-->
+    <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter"/>
 
+    <!--对日志进行格式化-->
+    <property name="LOG_MSG" value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr([%thread]){cyan} %clr(%-5level) %clr(%logger{50}){blue} - %msg%n"/>
     <!--单个文件大小，默认10MB-->
     <springProperty scope="context" name="MAX_FILE_SIZE" source="logging.file.max-size" defaultValue="10MB" />
 
