@@ -45,7 +45,6 @@
 		<dependency>
 			<groupId>com.lz</groupId>
 			<artifactId>project-skeleton-api</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 

@@ -24,6 +24,7 @@
 		<protobuf-maven-plugin.version>0.5.1</protobuf-maven-plugin.version>
 		<grpc-protobuf-plugin.version>3.3.0</grpc-protobuf-plugin.version>
 		<grpc-gen-java-plugin.version>1.4.0</grpc-gen-java-plugin.version>
+		<project-skeleton-api.verion>0.0.1-SNAPSHOT</project-skeleton-api.verion>
 	</properties>
 
 	<dependencyManagement>
@@ -56,11 +57,16 @@
 				<artifactId>grpc-client-spring-boot-starter</artifactId>
 				<version>2.7.0.RELEASE</version>
 			</dependency>
+			<dependency>
+				<groupId>com.lz</groupId>
+				<artifactId>project-skeleton-api</artifactId>
+				<version>${project-skeleton-api.verion}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
 	<build>
-		<!--BaseBuild Parameter：所有构建输出文件的根目录-->
+		<!--BaseBuild Parameter：所有构建输出文件的根目录.构建任务生成的所有文件将相对此路径-->
 		<directory>${project.basedir}${file.separator}output</directory>
 		<!--BaseBuild Parameter：classes文件输出目录-->
 		<outputDirectory>${project.build.directory}</outputDirectory>
