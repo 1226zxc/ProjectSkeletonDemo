@@ -42,6 +42,10 @@ private final static Logger debugLogger = LoggerFactory.getLogger("DebugLogger")
 > 该日志记录器的具体配置，请查看 `logback-spring.xml` 中`name = 'DebugLogger'`的Logger 。
 5. api Module 并没有install本地仓库中，Server module 也一样在classpath中找到。但如果在集成构建时发现本地仓库中不存在，api
 module就会构建失败。
+6. `maven-jar-plugin`打出来的jar包，只包含应用程序的class文件，不包含所需的依赖。`spring-boot-maven-plugin`会将其二次打包成
+可执行jar包，并jar里创建了`lib`目录用来保存应用程序所需依赖。`Server`模块采用是包外`lib`下引用依赖，包外`config`目录引用
+资源文件，所以原始jar中被配置成不包含resources文件并设置引用包外`lib/`目录，二次打成的可执行jar包中不包含lib目录。
 ## 参考文章
 - [日志框架 Logback 官方手册（第二章：架构）](https://www.jianshu.com/p/b000126a0cda)
 - [logback 最佳实践](https://www.jianshu.com/p/d648493667c0)
+- [spring-boot-maven-plugin 把依赖包放出至lib目录，复制资源到config目录](https://blog.csdn.net/qq_36344441/article/details/96484790)
