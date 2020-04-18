@@ -1,0 +1,35 @@
+<assembly>
+    <id>assembly</id>
+
+    <formats>
+        <format>tar.gz</format>
+    </formats>
+
+    <includeBaseDirectory>true</includeBaseDirectory>
+
+    <fileSets>
+        <fileSet>
+            <directory>src/main/bin</directory>
+            <includes>
+                <include>*.sh</include>
+            </includes>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>output/project-skeleton-server/config/</directory>
+            <outputDirectory>config</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>output/lib/</directory>
+            <outputDirectory>lib</outputDirectory>
+        </fileSet>
+    </fileSets>
+
+    <files>
+        <file>
+            <source>${project.build.directory}${file.separator}${build.finalName}.${project.packaging}</source>
+            <outputDirectory>.</outputDirectory>
+        </file>
+    </files>
+</assembly>

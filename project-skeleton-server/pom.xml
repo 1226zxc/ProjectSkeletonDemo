@@ -11,6 +11,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>project-skeleton-service</name>
 	<description>project-skeleton-service</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -53,7 +54,111 @@
 		<directory>..${file.separator}output${file.separator}${project.artifactId}</directory>
 		<!--BaseBuild Parameter：classes文件输出目录-->
 		<outputDirectory>${project.build.directory}/classes</outputDirectory>
+		<resources>
+			<resource>
+				<directory>${project.basedir}${file.separator}src${file.separator}main${file.separator}assembly</directory>
+			</resource>
+			<resource>
+				<directory>${project.basedir}${file.separator}src${file.separator}main${file.separator}resources</directory>
+			</resource>
+		</resources>
 		<plugins>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<!--将资源文件复制到config目录下-->
+					<execution>
+						<id>copy-resources</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/config</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>**/*.*</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
+					<!--将资源文件复制到classes目录下-->
+					<execution>
+						<id>resource</id>
+						<phase>prepare-package</phase>
+						<goals><goal>resources</goal></goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<resources>
+								<resource>
+									<directory>src/main/assembly</directory>
+									<includes>
+										<include>assembly.xml</include>
+									</includes>
+									<!--替换掉assembly.xml中的占位符-->
+									<filtering>true</filtering>
+								</resource>
+								<resource>
+									<directory>src/main/resources</directory>
+									<includes>
+										<include>**/*.*</include>
+									</includes>
+									<filtering>false</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--本module的依赖复制到lib/目录下-->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<!--复制应用程序所需依赖到/lib下-->
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+							<!-- 是否不包含间接依赖 -->
+							<excludeTransitive>false</excludeTransitive>
+							<!-- 忽略版本 -->
+							<stripVersion>false</stripVersion>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!--原始jar包中不包含任何资源文件，并引用同级lib目录下的依赖-->
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<classesDirectory>${project.build.outputDirectory}</classesDirectory>
+					<!--resources文件不打进包-->
+					<includes>
+						<include>/**/*.class</include>
+					</includes>
+					<archive>
+						<manifest>
+							<!--向打包清单中追加classpath路径，以便应用程序能找到依赖-->
+							<addClasspath>true</addClasspath>
+							<!--打出来的原始jar包从lib/下引用所需的依赖-->
+							<classpathPrefix>lib/</classpathPrefix>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<!--打成可执行jar包，并排除包内依赖的lib目录-->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -78,71 +183,24 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
+				<artifactId>maven-assembly-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>copy-resources</id>
+						<id>make-assembly</id>
+						<!-- 绑定到package生命周期 -->
 						<phase>package</phase>
 						<goals>
-							<goal>copy-resources</goal>
+							<!-- 只运行一次 -->
+							<goal>single</goal>
 						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/config</outputDirectory>
-							<resources>
-								<resource>
-									<directory>src/main/resources</directory>
-									<includes>
-										<include>**/*.*</include>
-									</includes>
-									<filtering>false</filtering>
-								</resource>
-							</resources>
-							<encoding>UTF-8</encoding>
-						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-jar-plugin</artifactId>
 				<configuration>
-					<classesDirectory>${project.build.outputDirectory}</classesDirectory>
-					<!--resources文件不打进包-->
-					<includes>
-						<include>/**/*.class</include>
-					</includes>
-					<archive>
-						<manifest>
-							<!--向打包清单中追加classpath路径，以便应用程序能找到依赖-->
-							<addClasspath>true</addClasspath>
-							<!--打出来的原始jar包从lib/下引用所需的依赖-->
-							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>*.*Server</mainClass>
-						</manifest>
-					</archive>
+					<descriptors>
+						<!-- 配置描述符文件 -->
+						<descriptor>${project.build.outputDirectory}${file.separator}assembly.xml</descriptor>
+					</descriptors>
 				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<!--复制应用程序所需依赖到/lib下-->
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-							<overWriteReleases>false</overWriteReleases>
-							<overWriteSnapshots>false</overWriteSnapshots>
-							<overWriteIfNewer>true</overWriteIfNewer>
-							<!-- 是否不包含间接依赖 -->
-							<excludeTransitive>false</excludeTransitive>
-							<!-- 忽略版本 -->
-							<stripVersion>false</stripVersion>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 
 		</plugins>
