@@ -40,6 +40,8 @@ public static void main(String[] args) {
 private final static Logger debugLogger = LoggerFactory.getLogger("DebugLogger");
 ```
 > 该日志记录器的具体配置，请查看 `logback-spring.xml` 中`name = 'DebugLogger'`的Logger 。
+5. api Module 并没有install本地仓库中，Server module 也一样在classpath中找到。但如果在集成构建时发现本地仓库中不存在，api
+module就会构建失败。
 ## 参考文章
 - [日志框架 Logback 官方手册（第二章：架构）](https://www.jianshu.com/p/b000126a0cda)
 - [logback 最佳实践](https://www.jianshu.com/p/d648493667c0)
