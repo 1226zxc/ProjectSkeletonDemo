@@ -7,9 +7,10 @@
 
     <includeBaseDirectory>true</includeBaseDirectory>
 
+    <!--打包的文件源都从构建目录中获取-->
     <fileSets>
         <fileSet>
-            <directory>src/main/bin</directory>
+            <directory>${project.basedir}${file.separator}src/main/bin</directory>
             <includes>
                 <include>*.sh</include>
             </includes>
@@ -17,11 +18,11 @@
             <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
-            <directory>output/project-skeleton-server/config/</directory>
+            <directory>${project.build.directory}${file.separator}config</directory>
             <outputDirectory>config</outputDirectory>
         </fileSet>
         <fileSet>
-            <directory>output/lib/</directory>
+            <directory>${project.build.directory}${file.separator}lib</directory>
             <outputDirectory>lib</outputDirectory>
         </fileSet>
     </fileSets>

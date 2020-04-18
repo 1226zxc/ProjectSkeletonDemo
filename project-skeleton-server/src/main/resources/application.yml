@@ -6,7 +6,7 @@ spring:
   application:
     name: project-skeleton-server
 logging:
-  config: classpath:logback-spring.xml
+  config: file:./config/logback-spring.xml
   file:
     path: logs/
     # 日志文件前缀名
@@ -32,6 +32,8 @@ spring:
 grpc:
     server:
       port: 9090
+logging:
+  config: classpath:logback-spring.xml
 custom-config:
   file:
     name: custom-config1.properties
