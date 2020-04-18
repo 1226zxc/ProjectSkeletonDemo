@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "custom-config.file.name",
+      "type": "java.lang.String",
+      "description": "Description for custom-config.file.name."
+    },
+    {
+      "name": "custom-config.file.path",
+      "type": "java.lang.String",
+      "description": "Description for custom-config.file.path."
+    }
+  ] }

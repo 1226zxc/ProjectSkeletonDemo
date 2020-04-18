@@ -1,5 +1,6 @@
 package com.lz.server;
 
+import com.lz.server.config.CustomConfig1;
 import com.lz.skeleton.api.GreeterGrpc;
 import com.lz.skeleton.api.HelloReply;
 import com.lz.skeleton.api.HelloRequest;
@@ -7,6 +8,8 @@ import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 
 @GrpcService
 public class GreeterService extends GreeterGrpc.GreeterImplBase {
@@ -21,6 +24,9 @@ public class GreeterService extends GreeterGrpc.GreeterImplBase {
      * 用于Debug目的使用的日志记录器
      */
     private final static Logger debugLogger = LoggerFactory.getLogger("DebugLogger");
+
+
+    private static ApplicationContext applicationContext;
 
     @Override
     public void sayHello(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
@@ -50,4 +56,16 @@ public class GreeterService extends GreeterGrpc.GreeterImplBase {
 
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getServerConfig(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
+        CustomConfig1 config1 = applicationContext.getAutowireCapableBeanFactory().getBean(CustomConfig1.class);
+        System.out.println(config1);
+    }
+
+    @Autowired
+    public void setApplicationContext(ApplicationContext applicationContext) {
+        GreeterService.applicationContext = applicationContext;
+    }
+
 }

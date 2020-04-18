@@ -21,6 +21,10 @@ logging:
     # RootLogger 日志级别阈值
     root: INFO
 
+custom-config:
+  file:
+    name: custom-config1.properties
+    path: file:./config/custom-config1.properties
 ---
 # 开发环境使用的配置
 spring:
@@ -28,6 +32,10 @@ spring:
 grpc:
     server:
       port: 9090
+custom-config:
+  file:
+    name: custom-config1.properties
+    path: classpath:custom-config1.properties
 ---
 # 测试环境使用的配置
 spring:

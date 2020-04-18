@@ -12,9 +12,10 @@ public class Client {
 		HelloClient bean = context.getBean(HelloClient.class);
 		System.out.println("start....");
 		while (true) {
-			bean.receiveGreeting("World!");
-			bean.sayHelloAgain("World!");
-//			Thread.sleep(3000);
+//			bean.receiveGreeting("World!");
+//			bean.sayHelloAgain("World!");
+			bean.getServerConfig("getServerConfig");
+			Thread.sleep(3000);
 		}
 	}
 
