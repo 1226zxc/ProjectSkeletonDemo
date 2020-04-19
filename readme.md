@@ -1,3 +1,6 @@
+## 注意事项
+1. 最终assembly出来包的目录结构不能改变。即：jar包和`bin/`、`lib/`、`config/`为同级。并也不要移动`bin/`中的脚本文件。
+这是因为Jar包被设置了引用同级目录`lib/`和`config/`目录；脚本会启动上一级目录下的jar包;若想更改这种目录结构就需要自己重新配置。
 ## 笔记
 1. project-skeleton-server 在`application.yml`增加了中文注释，运行后，结果如下：
 ```

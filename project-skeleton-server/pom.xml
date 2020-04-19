@@ -54,6 +54,7 @@
 		<directory>..${file.separator}output${file.separator}${project.artifactId}</directory>
 		<!--BaseBuild Parameter：classes文件输出目录-->
 		<outputDirectory>${project.build.directory}/classes</outputDirectory>
+		<finalName>${artifactId}</finalName>
 		<resources>
 			<resource>
 				<directory>${project.basedir}${file.separator}src${file.separator}main${file.separator}assembly</directory>
@@ -75,6 +76,7 @@
 						</goals>
 						<configuration>
 							<outputDirectory>${project.build.directory}/config</outputDirectory>
+							<encoding>UTF-8</encoding>
 							<resources>
 								<resource>
 									<directory>src/main/resources</directory>
@@ -94,11 +96,14 @@
 						<goals><goal>resources</goal></goals>
 						<configuration>
 							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<encoding>UTF-8</encoding>
 							<resources>
 								<resource>
 									<directory>src/main/assembly</directory>
 									<includes>
 										<include>assembly.xml</include>
+										<include>docs/*</include>
+										<include>bin/server.sh</include>
 									</includes>
 									<!--替换掉assembly.xml中的占位符-->
 									<filtering>true</filtering>

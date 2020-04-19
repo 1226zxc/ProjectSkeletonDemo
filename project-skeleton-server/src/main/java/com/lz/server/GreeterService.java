@@ -60,7 +60,9 @@ public class GreeterService extends GreeterGrpc.GreeterImplBase {
     @Override
     public void getServerConfig(HelloRequest request, StreamObserver<HelloReply> responseObserver) {
         CustomConfig1 config1 = applicationContext.getAutowireCapableBeanFactory().getBean(CustomConfig1.class);
-        System.out.println(config1);
+        if (debugLogger.isDebugEnabled()) {
+            debugLogger.debug("getServerConfig(HelloRequest,StreamObserver) 接收到请求，开始服务.请求信息：{}", request);
+        }
     }
 
     @Autowired

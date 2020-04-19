@@ -10,9 +10,11 @@
     <!--打包的文件源都从构建目录中获取-->
     <fileSets>
         <fileSet>
-            <directory>${project.basedir}${file.separator}src/main/bin</directory>
+            <directory>${project.basedir}${file.separator}src/main/assembly/bin</directory>
             <includes>
                 <include>*.sh</include>
+                <include>*.bat</include>
+                <include>*.cmd</include>
             </includes>
             <outputDirectory>bin</outputDirectory>
             <fileMode>0755</fileMode>
@@ -20,10 +22,17 @@
         <fileSet>
             <directory>${project.build.directory}${file.separator}config</directory>
             <outputDirectory>config</outputDirectory>
+            <fileMode>0755</fileMode>
         </fileSet>
         <fileSet>
             <directory>${project.build.directory}${file.separator}lib</directory>
             <outputDirectory>lib</outputDirectory>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <directory>${project.build.outputDirectory}${file.separator}docs</directory>
+            <outputDirectory>docs</outputDirectory>
+            <fileMode>0755</fileMode>
         </fileSet>
     </fileSets>
 
@@ -31,6 +40,7 @@
         <file>
             <source>${project.build.directory}${file.separator}${build.finalName}.${project.packaging}</source>
             <outputDirectory>.</outputDirectory>
+            <fileMode>0755</fileMode>
         </file>
     </files>
 </assembly>
