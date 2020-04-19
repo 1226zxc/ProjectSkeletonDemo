@@ -167,6 +167,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${springboot.version}</version>
 				<configuration>
 					<!-- hot deploy  -->
 					<fork>true</fork>
