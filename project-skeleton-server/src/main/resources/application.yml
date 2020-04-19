@@ -28,7 +28,7 @@ custom-config:
 ---
 # 开发环境使用的配置
 spring:
-  profiles: development
+  profiles: dev
 grpc:
     server:
       port: 9090
@@ -48,8 +48,8 @@ grpc:
 ---
 # 生产环境使用的配置
 spring:
-  profiles: production
+  profiles: prod | default
 grpc:
   server:
-    port: 9092
+    port: 10086
 ---

@@ -52,3 +52,5 @@ module`就会构建失败。但如果api本地class文件丢失，`server`并不
 - [日志框架 Logback 官方手册（第二章：架构）](https://www.jianshu.com/p/b000126a0cda)
 - [logback 最佳实践](https://www.jianshu.com/p/d648493667c0)
 - [spring-boot-maven-plugin 把依赖包放出至lib目录，复制资源到config目录](https://blog.csdn.net/qq_36344441/article/details/96484790)
+- [Shell特殊变量：Shell $0, $#, $*, $@, $?, $$和命令行参数](https://www.cnblogs.com/davygeek/p/5670212.html)
+- [linux shell命令行选项与参数用法详解--getopts、getopt](https://www.jianshu.com/p/6393259f0a13)
