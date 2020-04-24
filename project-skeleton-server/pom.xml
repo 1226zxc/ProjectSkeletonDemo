@@ -54,7 +54,7 @@
 		<directory>..${file.separator}output${file.separator}${project.artifactId}</directory>
 		<!--BaseBuild Parameter：classes文件输出目录-->
 		<outputDirectory>${project.build.directory}/classes</outputDirectory>
-		<finalName>${artifactId}</finalName>
+		<finalName>${project.artifactId}</finalName>
 		<resources>
 			<resource>
 				<directory>${project.basedir}${file.separator}src${file.separator}main${file.separator}assembly</directory>
