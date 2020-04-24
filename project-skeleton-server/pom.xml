@@ -159,6 +159,7 @@
 							<addClasspath>true</addClasspath>
 							<!--打出来的原始jar包从lib/下引用所需的依赖-->
 							<classpathPrefix>lib/</classpathPrefix>
+							<mainClass>com.lz.server.HelloServer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
