@@ -31,7 +31,7 @@ spring:
   profiles: dev
 grpc:
     server:
-      port: 9090
+      port: 10086
 logging:
   config: classpath:logback-spring.xml
 custom-config:
@@ -44,7 +44,7 @@ spring:
   profiles: test
 grpc:
   server:
-    port: 9091
+    port: 10086
 ---
 # 生产环境使用的配置
 spring:

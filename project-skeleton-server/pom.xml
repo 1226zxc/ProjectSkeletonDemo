@@ -89,6 +89,27 @@
 							<encoding>UTF-8</encoding>
 						</configuration>
 					</execution>
+					<execution>
+						<id>copy-resources-for-docker</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/docker</outputDirectory>
+							<encoding>UTF-8</encoding>
+							<resources>
+								<resource>
+									<directory>src/main/docker</directory>
+									<includes>
+										<include>*</include>
+									</includes>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+							<encoding>UTF-8</encoding>
+						</configuration>
+					</execution>
 					<!--将资源文件复制到classes目录下-->
 					<execution>
 						<id>resource</id>
@@ -209,7 +230,19 @@
 					</descriptors>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>${project.artifactId}:${project.version}</imageName>
+					<!-- docker push 推送镜像，地址来源于构建时所在的环境变量-->
+					<registryUrl>${DOCKER_REGISTRY}</registryUrl>
+					<!-- docker build 构建镜像，地址来源于构建时所在的环境变量 -->
+					<dockerHost>${DOCKER_HOST}</dockerHost>
+					<dockerDirectory>${project.build.directory}${file.separator}docker</dockerDirectory>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
